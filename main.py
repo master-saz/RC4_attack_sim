@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-def fact3_operation(given_cipher, mrv_f1, mrv_kn, given_iv):
+def fact2_extra_operation(given_cipher, mrv_f1, mrv_kn, given_iv):
     # where mrv_f1 is the most repeated value obtained from fact 1.
     # where mrv_kn is the most repeated value obtained from k[n].
 
@@ -89,10 +89,10 @@ if __name__ == '__main__':
     print(f"most repeated value in fact2: {k0}")
     k.append(k0)
 
-    df["fact3"] = ""
+    df["fact2_extra"] = ""
     for index, row in df.iterrows():
-        fact3 = fact3_operation(row["cipher"], fact1_most_repeated, k0, row["iv"])
-        df.at[index, 'fact3'] = fact3
+        fact2_extra = fact2_extra_operation(row["cipher"], fact1_most_repeated, k0, row["iv"])
+        df.at[index, 'fact2_extra'] = fact2_extra
 
     print(df.head())
     """
