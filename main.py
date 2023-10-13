@@ -23,18 +23,18 @@ def fact3(given_cipher, mrv_f1, k_list, given_iv, constant_d):
     # x-10
     given_iv = given_iv[len(given_iv) - 2:]
     iv_dec = int(given_iv, base=16)
-    iv_dec = (iv_dec - constant_d) % 256
+    #iv_dec = (iv_dec - constant_d) % 256
 
     cipher_dec_val = int(given_cipher, base=16)
     mrv_f1_dec_val = int(mrv_f1, base=16)
 
     mrv_kn_dec_val = 0
     for k_i in k_list:
-        mrv_kn_dec_val -= int(k_i, base=16)
+        mrv_kn_dec_val += int(k_i, base=16)
 
     # (c[0] XOR m[0]) - x - d[0] - k[0]
-    result = (cipher_dec_val ^ mrv_f1_dec_val) - iv_dec - mrv_kn_dec_val
-    result = (result + 256) % 256  # TODO to deal with negative values
+    result = (cipher_dec_val ^ mrv_f1_dec_val) - iv_dec - constant_d - mrv_kn_dec_val
+    result = (result + 256) % 256  # to deal with negative values
     result = '0x{0:02x}'.format(result).upper()
     return result
 
@@ -46,15 +46,15 @@ def fact2_extra_operation(given_cipher, mrv_f1, mrv_kn, given_iv):
     # x-10
     given_iv = given_iv[len(given_iv) - 2:]
     iv_dec = int(given_iv, base=16)
-    iv_dec = (iv_dec - 10) % 256
+    #iv_dec = (iv_dec - 10) % 256
 
     cipher_dec_val = int(given_cipher, base=16)
     mrv_f1_dec_val = int(mrv_f1, base=16)
     mrv_kn_dec_val = int(mrv_kn, base=16)
 
     # (c[0] XOR m[0]) - x - 10 - k[0]
-    result = (cipher_dec_val ^ mrv_f1_dec_val) - iv_dec - mrv_kn_dec_val
-    result = (result + 256) % 256  # TODO to deal with negative values
+    result = (cipher_dec_val ^ mrv_f1_dec_val) - iv_dec - 10 - mrv_kn_dec_val
+    result = (result + 256) % 256  # to deal with negative values
     result = '0x{0:02x}'.format(result).upper()
     return result
 
@@ -64,13 +64,13 @@ def fact2_operation(given_cipher, mrv_f1, given_iv):
     # x-6
     given_iv = given_iv[len(given_iv) - 2:]
     iv_dec = int(given_iv, base=16)
-    iv_dec = (iv_dec - 6) % 256
+    #iv_dec = (iv_dec - 6) % 256
 
     cipher_dec_val = int(given_cipher, base=16)
     mrv_f1_dec_val = int(mrv_f1, base=16)
     # (c[0] XOR m[0])-x-6
-    result = (cipher_dec_val ^ mrv_f1_dec_val) - iv_dec
-    result = (result + 256) % 256  #TODO to deal with negative values
+    result = (cipher_dec_val ^ mrv_f1_dec_val) - iv_dec - 6
+    result = (result + 256) % 256  # to deal with negative values
     #print(result)
     result = '0x{0:02x}'.format(result).upper()
     return result
