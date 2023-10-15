@@ -105,8 +105,10 @@ def get_rest_of_k():
         for j in range(i + 4):  # +4 because it is until (i+3) in the sequence 1+2+…+(i+3)
             d += j
         # print(f"{i}:{d}")
-        #print(z)
+        # print(z)
 
+        print(f"Guessing k_{i}")
+        print(f"Getting values from bytes_{z}FFxx")
         result_dict = {'iv': [], 'cipher': [], 'values': []}
         file = open(f"bytes_{z}FFxx.txt", "r")
         while True:
@@ -132,6 +134,8 @@ def get_rest_of_k():
 
 
 def get_k1(m0, k0):
+    print("Guessing k_1")
+    print(f"Getting values from bytes_04FFxx")
     result_dict = {'iv': [], 'cipher': [], 'values': []}
     file = open("bytes_04FFxx.txt", "r")
     while True:
@@ -155,9 +159,12 @@ def get_k1(m0, k0):
     return values.index[0]  # the most repeated value
 
 
-def get_k0(m0):
+def get_k0(m0, file_name="bytes_03FFxx.txt"):
+    print("Guessing k_0")
+    print(f"Getting values from {file_name}")
+
     result_dict = {'iv': [], 'cipher': [], 'values': []}
-    file = open("bytes_03FFxx.txt", "r")
+    file = open(file_name, "r")
     while True:
         content = file.readline().rstrip("\n")  # read line and remove extra step
         if not content:
@@ -178,9 +185,11 @@ def get_k0(m0):
     return fact2_counts.index[0]  # the most repeated value
 
 
-def get_m0():
+def get_m0(file_name="bytes_01FFxx.txt"):
+    print("Guessing m_0")
+    print(f"Getting values from {file_name}")
     result_dict = {'iv': [], 'cipher': [], 'values': []}
-    file = open("bytes_01FFxx.txt", "r")
+    file = open(file_name, "r")
     while True:
         content = file.readline().rstrip("\n")  # read line and remove extra step
         if not content:
@@ -220,6 +229,7 @@ if __name__ == '__main__':
     k.append(k_1)
 
     get_rest_of_k()
+    print(f"The key is: {k}")
 
 
 
